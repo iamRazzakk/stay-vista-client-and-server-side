@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { formatDistance } from "date-fns";
 import Button from "../../components/Button/Button";
 import Calender from "./Calender";

@@ -1,7 +1,31 @@
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import axios from 'axios'
 
 const SignUp = () => {
+  const submitHandler = async e => {
+    e.preventDefault()
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const image = form.image.files[0]//how to sand img in server side first of all take img which is 11 number line and create a form like formData like 13 number line.Than appand it like 14 number line.remamber that "image" name you show give that.
+    console.log(image);
+    console.log('API Key:', import.meta.env.VITE_SOME_KEY);
+    const formData = new FormData()
+    formData.append('image', image)
+    // console.log(name, email, password);
+    try {
+      const { data } = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_SOME_KEY}`, formData
+      )
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+
+
+  }
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -9,7 +33,7 @@ const SignUp = () => {
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
           <p className='text-sm text-gray-400'>Welcome to StayVista</p>
         </div>
-        <form
+        <form onSubmit={submitHandler}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
